@@ -81,7 +81,7 @@ window.onload = function () {
     function checkMoney() {
         deposit = document.forms["form"]["deposit"].value;
 
-        var regex = /(?=.)^\$?(([1-9][0-9]{0,2}(,[0-9]{3})*)|0)?(\.[0-9]{1,2})?$/;
+        var regex = /^\$?[0-9][0-9,]*[0-9]\.?[0-9]{0,2}$/;
         if (!deposit.match(regex)) {
             document.getElementById("depositErr").innerHTML = ("Must input currency format");
             return false;
@@ -114,9 +114,13 @@ window.onload = function () {
             document.writeln("Total cost: " + due.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
             
             document.writeln("Deposit amount: " + numDeposit.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
-            due -= deposit;
+            due -= numDeposit;
             
-            document.writeln("Balance due: " + due.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
+            if(numDeposit <= due){
+                document.writeln("Balance due: " + due.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
+            } else {
+                document.writeln("Refund: " + (-due).toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
+            }
         } else {
             alert("bad");
         }
