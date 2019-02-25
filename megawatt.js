@@ -27,7 +27,6 @@ window.onload = function () {
     }
     //validate first
     function checkFName() {
-        alert("checking first");
         first = document.forms["form"]["fName"].value;
         var regex = /^[A-Za-z]+$/;
         if (!first.match(regex)) {
@@ -40,7 +39,6 @@ window.onload = function () {
     }
     //validate last
     function checkLName() {
-        alert("checking last");
         last = document.forms["form"]["lName"].value;
 
         var regex = /^[A-Za-z]+$/;
@@ -54,8 +52,8 @@ window.onload = function () {
     }
     //validate number
     function checkInpNumber() {
-        alert("checking num");
-        panels = documents.forms["form"]["number"].value;
+        panels = document.forms["form"]["number"].value;
+        
         var regex = /^[0-9]+$/;
 
         if (!panels.match(regex)) {
@@ -68,11 +66,10 @@ window.onload = function () {
     }
     //validate phone number
     function checkPhoneNumber() {
-        alert("checking phone");
         phoneNo = document.forms["form"]["phone"].value;
         
         var regex = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
-        if (!(regex.test(phoneNo.value))) {
+        if (!phoneNo.match(regex)) {
             document.getElementById("phoneErr").innerHTML = ("Must Input Phone Format");
             return false;
         }
@@ -82,8 +79,8 @@ window.onload = function () {
     }
     //validate money
     function checkMoney() {
-        alert("checking money");
-        deposit = documents.forms["form"]["deposit"].value;
+        deposit = document.forms["form"]["deposit"].value;
+
         var regex = /(?=.)^\$?(([1-9][0-9]{0,2}(,[0-9]{3})*)|0)?(\.[0-9]{1,2})?$/;
         if (!deposit.match(regex)) {
             document.getElementById("depositErr").innerHTML = ("Must input currency format");
@@ -95,9 +92,11 @@ window.onload = function () {
     }
     function myFunction() {
         if (Validate()) {
+            express = document.forms["form"]["express"].checked;
             var due;
-            var additional = (parseInt(panels) - 2) * 300;
+            var additional = ((parseInt(panels)) - 2) * 300;
             var baseInstall = 2000;
+            var numDeposit= parseFloat(deposit);
                
             if (express === true) {
                 due = 1.05 * (baseInstall + additional);
@@ -106,13 +105,18 @@ window.onload = function () {
                 due = (baseInstall + additional);
             }
 
-            document.writeln("Hello, " + first + " " + last);
-            document.writeln("Base Charge: " + baseInstall.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-            document.writeln("Additional Panels: " + additional.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-            document.writeln("Total cost: " + due.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
-            document.writeln("Deposit amount: " + deposit.toLocaleString('en-US', { style: 'currency', currency: 'USD' }))
+            document.writeln("Hello, " + first + " " + last + "<br />");
+            
+            document.writeln("Base Charge: " + baseInstall.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
+            
+            document.writeln("Additional Panels: " + additional.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
+            
+            document.writeln("Total cost: " + due.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
+            
+            document.writeln("Deposit amount: " + numDeposit.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
             due -= deposit;
-            document.writeln("Balance due: " + due.toLocaleString('en-US', { style: 'currency', currency: 'USD' }));
+            
+            document.writeln("Balance due: " + due.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) + "<br />");
         } else {
             alert("bad");
         }
