@@ -1,15 +1,16 @@
-def main():
-    f_name = input("First Name: ")
-    l_name = input("Last Name: ")
-    phone = input("Phone Number: ")
-    num_panels = input("Number of Panels: ")
-    deposit = input("Deposit Amount: ")
-    express = input("Express Installation? (Y/N): ")
+import re
 
-    # convert necessary values to actual numbers
+def main():
+    f_name = check_name(input("First Name: "))
+    l_name = check_name(input("Last Name: "))
+    phone = check_phone(input("Phone Number: "))
+    num_panels = check_num(input("Number of Panels: "))
     act_panel = int(num_panels)
+
+    deposit = check_money(input("Deposit Amount: "))
     act_dep = float(deposit)
 
+    express = input("Express Installation? (Y/N): ")
     # convert boolean
     act_express = convert_to_bool(express)
 
@@ -18,10 +19,53 @@ def main():
 
 def convert_to_bool(x):
     y = "y";
+    n = "n";
+    while x not in [y, n]:
+        print("Invalid Input")
+        new_x = input("Express Installation? (Y/N): ")
+        return convert_to_bool(new_x);
     if x.casefold() == y.casefold():
         return True
-    else:
+    elif x.casefold() == n.casefold():
         return False
+
+
+def check_name(x):
+    if not x.isalpha():
+        print("Invalid Input")
+        new_x = input("Name: ")
+        return check_name(new_x)
+    return x
+
+
+def check_phone(x):
+    r = re.compile(r'(\d{3}[-\.\s]\d{3}[-\.\s]\d{4}|\(\d{3}\)\s*\d{3}[-\.\s]\d{4}|\d{3}[-\.\s]\d{4})')
+
+    if not re.search(r, x):
+        print("Invalid Input")
+        new_x = input("Phone Number: ")
+        return check_phone(new_x)
+    return x
+
+
+def check_num(x):
+    r = re.compile(r'^[-+]?[0-9]+$')
+
+    if not re.search(r, x):
+        print("Invalid Input")
+        new_x = input("Number of panels: ")
+        return check_num(new_x)
+    return x
+
+
+def check_money(x):
+    r = re.compile(r'[0-9,.]+')
+
+    if not re.search(r, x):
+        print("Invalid Input")
+        new_x = input("Deposit Amount: ")
+        return check_money(new_x)
+    return x
 
 
 def calc_charge(num):
