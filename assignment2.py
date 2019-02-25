@@ -95,7 +95,7 @@ def show_charges(fname, lname, num, deposit, express):
     print("Additional Panels: " + "${:,.2f}".format(calc_charge(num)))
     print("Total cost: " + "${:,.2f}".format(calc_total(num, express)))
     print("Deposit Amount: " + "${:,.2f}".format(deposit))
-    if deposit <= due:
+    if deposit <= calc_amount_due(num, express, deposit):
         print("Balance Due: " + "${:,.2f}".format(calc_amount_due(num, express, deposit)))
     else:
         print("Refund: " + "${:,.2f}".format(calc_amount_due(num, express, -deposit)))
