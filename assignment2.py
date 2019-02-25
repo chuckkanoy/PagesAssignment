@@ -1,12 +1,27 @@
 def main():
     f_name = input("First Name: ")
     l_name = input("Last Name: ")
-    phone = int(input("Phone Number: "))
-    num_panels = int(input("Number of Panels: "))
-    deposit = float(input("Deposit Amount: "))
+    phone = input("Phone Number: ")
+    num_panels = input("Number of Panels: ")
+    deposit = input("Deposit Amount: ")
     express = input("Express Installation? (Y/N): ")
 
-    show_charges(f_name, l_name, num_panels, deposit, express)
+    # convert necessary values to actual numbers
+    act_panel = int(num_panels)
+    act_dep = float(deposit)
+
+    # convert boolean
+    act_express = convert_to_bool(express)
+
+    show_charges(f_name, l_name, act_panel, act_dep, act_express)
+
+
+def convert_to_bool(x):
+    y = "y";
+    if x.casefold() == y.casefold():
+        return True
+    else:
+        return False
 
 
 def calc_charge(num):
@@ -19,7 +34,7 @@ def calc_charge(num):
 def calc_total(num, express):
     cost = 2000 + calc_charge(num)
 
-    if express == "Y" or express == "y":
+    if express:
         cost *= 1.05
 
     return cost
@@ -30,6 +45,7 @@ def calc_amount_due(num, express, deposit):
 
 
 def show_charges(fname, lname, num, deposit, express):
+    print("")
     print("Hello, " + fname + " " + lname + ".")
     print("Base Charge for 2 Panels: " + "${:,.2f}".format(2000))
     print("Additional Panels: " + "${:,.2f}".format(calc_charge(num)))
