@@ -71,8 +71,8 @@ window.onload = function () {
         alert("checking phone");
         phoneNo = parseInt(document.forms["form"]["phone"].value);
         phoneNo = 1111111111;
-        var regex = /^\d{10}$/;
-        if (!(regex.exec(phoneNo.value))) {
+        var regex = /^[(]{0,1}[0-9]{3}[)]{0,1}[-\s\.]{0,1}[0-9]{3}[-\s\.]{0,1}[0-9]{4}$/;
+        if (!(regex.test(phoneNo.value))) {
             document.getElementById("phoneErr").innerHTML = ("Must Input Phone Format");
             return false;
         }
