@@ -61,7 +61,12 @@ window.onload = function () {
             return false;
         }
         else {
-            return true;
+            var temp = parseInt(panels);
+            if (temp <= 1000 && temp > 0){
+                return true
+            } else {
+                return false;
+            }
         }
     }
     //validate phone number
@@ -81,7 +86,7 @@ window.onload = function () {
     function checkMoney() {
         deposit = document.forms["form"]["deposit"].value;
 
-        var regex = /^\$?[0-9][0-9,]*[0-9]\.?[0-9]{0,2}$/;
+        var regex = /^[0-9]*(\.[0-9]{1,2})?$/;
         if (!deposit.match(regex)) {
             document.getElementById("depositErr").innerHTML = ("Must input currency format");
             return false;

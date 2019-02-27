@@ -55,11 +55,17 @@ def check_num(x):
         print("Invalid Input")
         new_x = input("Number of panels: ")
         return check_num(new_x)
+    else:
+        temp = int(x)
+        if not temp <= 1000 and temp > 0:
+            print("Invalid Input")
+            new_x = input("Number of panels: ")
+            return check_num(new_x)
     return x
 
 
 def check_money(x):
-    r = re.compile(r'[0-9,.]+')
+    r = re.compile(r'^[0-9]*(\.[0-9]{1,2})?$')
 
     if not re.search(r, x):
         print("Invalid Input")
